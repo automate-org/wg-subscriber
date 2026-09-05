@@ -5,13 +5,13 @@ use std::io::Write;
 use std::net::{IpAddr, Ipv6Addr};
 use std::path::Path;
 use std::process::{Child, Command, Stdio};
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 use std::thread;
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result, bail};
 use blake3;
 use if_addrs::get_if_addrs;
 use ipnet::{IpNet, Ipv4Net, Ipv6Net};
@@ -104,11 +104,7 @@ fn get_port_range() -> (u16, u16) {
             .ok()
             .and_then(|s| s.parse().ok())
             .unwrap_or(65535);
-        if min > max {
-            (max, min)
-        } else {
-            (min, max)
-        }
+        if min > max { (max, min) } else { (min, max) }
     });
     *PORT_RANGE
 }
@@ -494,7 +490,7 @@ fn get_latest_wg_state(interface: &str, cache: &mut Option<(Instant, WgState)>) 
             .and_then(|s| s.parse().ok())
             .unwrap_or(2),
     );
-    if let Some((ref ts, ref state)) = cache {
+    if let Some((ts, state)) = cache {
         if ts.elapsed() < ttl {
             return Ok(state.clone());
         }
@@ -1880,8 +1876,8 @@ fn handle_full_snapshot(
     if !snapshot_ok {
         warn!(
             "Incomplete snapshot (peers: {}, self_present: {}), refusing to apply. Requesting fresh full state.",
-              snapshot.peers.len(),
-              self_in_snapshot
+            snapshot.peers.len(),
+            self_in_snapshot
         );
         *REGISTRATION_STATE.lock().unwrap() = RegistrationState::NotRegistered;
         *LAST_SNAPSHOT_PEERS.lock().unwrap() = snapshot.peers.clone();
