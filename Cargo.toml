@@ -1,0 +1,33 @@
+[package]
+name = "wg-subscriber"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+repository = "https://github.com/automate-org/wg-subscriber"
+
+
+[dependencies]
+anyhow = "1.0"
+rumqttc = { version = "0.24", features = ["use-rustls"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+zstd = "0.13"
+log = "0.4"
+env_logger = "0.11"
+signal-hook = "0.3"
+rustls = "0.22"
+rustls-pemfile = "1.0"
+rustls-native-certs = "0.6"
+blake3 = "1.5"
+tempfile = "3.0"
+if-addrs = "0.7"
+ipnet = "2.9"
+rand = "0.8"
+shlex = "1"
+
+[profile.release]
+opt-level = 3          # 最高优化级别
+lto = true             # 全程序 LTO（Fat LTO）
+codegen-units = 1      # 单代码生成单元，使 LTO 更有效
+strip = true           # 剥离调试符号，减小二进制体积
+panic = "abort"        # panic 直接 abort，减少异常处理代码，提升性能
