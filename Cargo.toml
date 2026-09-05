@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2024"
 license = "MIT"
 repository = "https://github.com/automate-org/wg-subscriber"
+description = "Linux WireGuard subscriber client using MQTT for dynamic configuration (kernel/AmneziaWG)"
+keywords = ["wireguard", "vpn", "mqtt", "client", "linux"]
+categories = ["network-programming", "command-line-utilities"]
+readme = "README.md"
 
 
 [dependencies]
