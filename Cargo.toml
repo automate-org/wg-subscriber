@@ -31,3 +31,8 @@ lto = true             # 全程序 LTO（Fat LTO）
 codegen-units = 1      # 单代码生成单元，使 LTO 更有效
 strip = true           # 剥离调试符号，减小二进制体积
 panic = "abort"        # panic 直接 abort，减少异常处理代码，提升性能
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

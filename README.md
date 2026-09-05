@@ -50,6 +50,7 @@
 ```bash
 # cargo安装
 catgo install wg-subscriber
+
 # 编译（需要 Rust 工具链）
 git clone https://github.com/automate-org/wg-subscriber
 cd wg-subscriber
