@@ -44,7 +44,7 @@
 
 - Linux 系统（支持内核 WireGuard）
 - 已安装 WireGuard（或 AmneziaWG / GoTun）
-- MQTT Broker（如 Mosquitto）
+- 可访问的 MQTT Broker（由服务端或网络管理员提供，客户端无需自行安装）
 
 ### 1. 获取二进制
 ```bash
